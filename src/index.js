@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router';
 
-import { store, routes, history } from './config';
+import { store, routes, history } from './configs';
 
 import './index.css';
 
