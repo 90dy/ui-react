@@ -5,6 +5,7 @@ import { Router } from 'react-router';
 
 import { store, routes, history } from './configs';
 
+import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 
 ReactDOM.render(
@@ -13,3 +14,4 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('root')
 );
+
