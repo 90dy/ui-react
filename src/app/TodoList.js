@@ -61,18 +61,18 @@ class TodoListItem extends Component {
 	onClickUndone() {
 		this.setState({done: false});
 	}
-	
-	renderChild() {
-			if (this.state.done === true)
-				return (<strike>{this.props.children}</strike>);
-			return (this.props.children);
-	}
 
 	render() {
+		if (this.state.done === true)
+			return (
+				<ListGroupItem active action onClick={this.onClickUndone.bind(this)}>
+						<strike>{this.props.children}</strike>
+				</ListGroupItem>
+			);
 		return (
-			<ListGroupItem active={this.props.done} action onClick={this.onClickUndone.bind(this)}>
-					{this.renderChild()}
-			</ListGroupItem>
+				<ListGroupItem action onClick={this.onClickDone.bind(this)}>
+					{this.props.children}
+				</ListGroupItem>
 		);
 	}
 }
