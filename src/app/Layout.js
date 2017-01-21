@@ -16,6 +16,7 @@ class Layout extends Component {
 				{description: "Salut !", done: false}
 			]
 		}
+		this.addItem = this.addItem.bind(this);
 	}
 
 	addItem(item) {
@@ -30,7 +31,7 @@ class Layout extends Component {
 			<div className="Layout">
 				<Jumbotron>
 					<Container>
-						<TodoListForm size="lg" color="primary" submit={this.addItem.bind(this)} />
+						<TodoListForm size="lg" color="primary" submit={this.addItem} />
 					</Container>
 				</Jumbotron>
 				<Container>

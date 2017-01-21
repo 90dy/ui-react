@@ -12,15 +12,17 @@ class TodoListForm extends Component {
 	constructor(props) {
 		super(props);
 
-		this._input = undefined;
+		this.inputRef = undefined;
+		this.addItem = this.addItem.bind(this);
+		this.onKeyDown = this.onKeyDown.bind(this);
 	}
 
 	addItem() {
 		console.log(this.refs.input);
-		if (this._input.value !== "")
+		if (this.inputRef.value !== "")
 		{
-			this.props.submit({description: this._input.value, done: false});
-			this._input.value = "";
+			this.props.submit({description: this.inputRef.value, done: false});
+			this.inputRef.value = "";
 		}
 	}
 
@@ -32,12 +34,12 @@ class TodoListForm extends Component {
 	render() {
 		return (
 			<InputGroup size={this.props.size}>
-				<Input placeholder="What needs to be done ?" onKeyDown={this.onKeyDown.bind(this)} ref="input" getRef={input => {this._input = input}} />
+				<Input placeholder="What needs to be done ?" onKeyDown={this.onKeyDown} ref="input" getRef={input => {this.inputRef = input}} />
 				<InputGroupButton>
 					<Button
 						outline={this.props.outline}
 						color={this.props.color}
-						onClick={this.addItem.bind(this)}
+						onClick={this.addItem}
 					>
 						Submit
 					</Button>
@@ -52,25 +54,27 @@ class TodoListItem extends Component {
 		super(props);
 
 		this.state = {done: props.done};
+		this.done = this.done.bind(this);
+		this.undone = this.undone.bind(this);
 	}
 
-	onClickDone() {
+	done() {
 		this.setState({done: true});
 	}
 
-	onClickUndone() {
+	undone() {
 		this.setState({done: false});
 	}
 
 	render() {
 		if (this.state.done === true)
 			return (
-				<ListGroupItem active action onClick={this.onClickUndone.bind(this)}>
+				<ListGroupItem active action onClick={this.undone}>
 						<strike>{this.props.children}</strike>
 				</ListGroupItem>
 			);
 		return (
-				<ListGroupItem action onClick={this.onClickDone.bind(this)}>
+				<ListGroupItem action onClick={this.done}>
 					{this.props.children}
 				</ListGroupItem>
 		);
