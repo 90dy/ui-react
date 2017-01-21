@@ -8,13 +8,7 @@ class Layout extends Component {
 		super(props);
 
 		this.state = {
-			items: [
-				{description: "hello world !", done: true},
-				{description: "Salut !", done: false},
-				{description: "Salut !", done: false},
-				{description: "Salut !", done: false},
-				{description: "Salut !", done: false}
-			]
+			items: []
 		}
 		this.addItem = this.addItem.bind(this);
 	}
