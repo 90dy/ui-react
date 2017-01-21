@@ -1,3 +1,9 @@
-export { default as store } from './store';
-export { default as routes } from './routes';
-export { default as history } from './history';
+import store from './store';
+import routes from './routes';
+import history from './history';
+
+export {
+	store,
+	routes,
+	history
+};
