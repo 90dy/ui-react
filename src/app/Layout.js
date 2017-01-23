@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {Container, Jumbotron} from 'reactstrap';
+import $ from 'jquery';
 
 import {TodoList, TodoListForm} from './TodoList';
+
 
 class Layout extends Component {
 	constructor(props) {
@@ -9,8 +11,30 @@ class Layout extends Component {
 
 		this.state = {
 			items: []
-		}
+		};
 		this.addItem = this.addItem.bind(this);
+		this.getItem = this.getItem.bind(this);
+	}
+
+	componentDidMount() {
+		this.getItem();
+	}
+
+	getItem() {
+		$(document).ready(() => {
+			$.getJSON("http://localhost:3001/api/todolist", "Origin: http://localhost:3000/")
+				.done((data) => {
+					data = data.map((d) => {
+						return {id: d.Id, description: d.Description};
+					});
+					this.setState({
+						items: data
+					}, () => {console.log(this.state.items)});
+				})
+				.fail((data, error) => {
+					console.error(error);
+				});
+		});
 	}
 
 	addItem(item) {
