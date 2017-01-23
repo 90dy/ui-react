@@ -1,5 +1,7 @@
 # React UI Todo list
 
+React base configuration with todolist example :)
+
 ## Documentation
 
 - React
