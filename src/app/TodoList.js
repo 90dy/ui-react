@@ -18,7 +18,6 @@ class TodoListForm extends Component {
 	}
 
 	addItem() {
-		console.log(this.refs.input);
 		if (this.inputRef.value !== "")
 		{
 			this.props.submit({description: this.inputRef.value, done: false});
@@ -69,14 +68,14 @@ class TodoListItem extends Component {
 	render() {
 		if (this.state.done === true)
 			return (
-				<ListGroupItem active action onClick={this.undone}>
-						<strike>{this.props.children}</strike>
+				<ListGroupItem action onClick={this.undone}>
+					<strike>{this.props.children}</strike>
 				</ListGroupItem>
 			);
 		return (
-				<ListGroupItem action onClick={this.done}>
-					{this.props.children}
-				</ListGroupItem>
+			<ListGroupItem action onClick={this.done}>
+				{this.props.children}
+			</ListGroupItem>
 		);
 	}
 }

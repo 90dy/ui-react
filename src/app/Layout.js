@@ -4,7 +4,6 @@ import $ from 'jquery';
 
 import {TodoList, TodoListForm} from './TodoList';
 
-
 class Layout extends Component {
 	constructor(props) {
 		super(props);
@@ -25,11 +24,11 @@ class Layout extends Component {
 			$.getJSON("http://localhost:3001/api/todolist", "Origin: http://localhost:3000/")
 				.done((data) => {
 					data = data.map((d) => {
-						return {id: d.Id, description: d.Description};
+						return {id: d.Id, description: d.Description, done: d.Done};
 					});
 					this.setState({
 						items: data
-					}, () => {console.log(this.state.items)});
+					});
 				})
 				.fail((data, error) => {
 					console.error(error);
