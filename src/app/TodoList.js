@@ -9,23 +9,18 @@ import {
 } from 'reactstrap';
 
 class TodoListForm extends Component {
-	constructor(props) {
-		super(props);
 
-		this.inputRef = undefined;
-		this.addItem = this.addItem.bind(this);
-		this.onKeyDown = this.onKeyDown.bind(this);
-	}
+	inputRef = undefined;
 
-	addItem() {
+	addItem = () => {
 		if (this.inputRef.value !== "")
 		{
-			this.props.submit({description: this.inputRef.value, done: false});
+			this.props.onSubmit({id: 0, description: this.inputRef.value, done: false});
 			this.inputRef.value = "";
 		}
 	}
 
-	onKeyDown(event) {
+	onKeyDown = (event) => {
 		if (event.key === 'Enter')
 			this.addItem();
 	}
@@ -49,31 +44,28 @@ class TodoListForm extends Component {
 }
 
 class TodoListItem extends Component {
-	constructor(props) {
-		super(props);
 
-		this.state = {done: props.done};
-		this.done = this.done.bind(this);
-		this.undone = this.undone.bind(this);
+	state = {
+		done: this.props.done
 	}
 
-	done() {
-		this.setState({done: true});
-	}
-
-	undone() {
-		this.setState({done: false});
+	onClick = () => {
+		this.props.onClick({id: this.props.id, description: this.props.children, done: !this.state.done});
+		if (this.state.done === true)
+			this.setState({done: false});
+		else if (this.state.done === false)
+			this.setState({done: true});
 	}
 
 	render() {
 		if (this.state.done === true)
 			return (
-				<ListGroupItem action onClick={this.undone}>
+				<ListGroupItem action id={this.props.id} onClick={this.onClick}>
 					<strike>{this.props.children}</strike>
 				</ListGroupItem>
 			);
 		return (
-			<ListGroupItem action onClick={this.done}>
+			<ListGroupItem action id={this.props.id} onClick={this.onClick}>
 				{this.props.children}
 			</ListGroupItem>
 		);
@@ -89,7 +81,7 @@ class TodoList extends Component {
 						this.props.items.slice().reverse().map(
 							(value, key, array) => {
 								return (
-									<TodoListItem key={key - array.length} done={value.done}>
+									<TodoListItem key={key - array.length} id={value.id} done={value.done} onClick={this.props.onClick}>
 										{value.description}
 									</TodoListItem>
 								);
